@@ -21,7 +21,7 @@ const BookType = new GraphQLObjectType({ // Object Type
         author: {
             type:AuthorType,
             resolve(parent,args){
-                // return _.find(authors, {id: parent.authorId});
+                return Author.findById(parent.authorId) // Author is coming from the Model being imported
             }
         }
     })
@@ -36,7 +36,7 @@ const AuthorType = new GraphQLObjectType({ // Object Type
         books: {
             type: new GraphQLList(BookType),
             resolve(parent,args) {
-                // return _.filter(books, {authorId: parent.id})
+                return Book.find({authorId: parent.id}) // find is a mongoose built in function
             }
         }
 
@@ -51,7 +51,7 @@ const RootQuery = new GraphQLObjectType({ // Root query are the access points to
             args: {id: { type:GraphQLID } }, // What query is expecting from frontend Req
             resolve(parent,args){ //response .then
                 // Code to get data from DB or other source
-                // return _.find(books, { id: args.id})
+                return Book.findById(args.id)
             }
         },
         author:{
@@ -59,21 +59,21 @@ const RootQuery = new GraphQLObjectType({ // Root query are the access points to
             args: {id: { type:GraphQLID } }, // What query is expecting from frontend Req
             resolve(parent,args){ //response .then
                 // Code to get data from DB or other source
-                // return _.find(authors, { id: args.id})
+                return Author.findById(args.id)
             }
         },
         books:{
             type: new GraphQLList(BookType), 
             resolve(parent,args){ //response .then
                 // Code to get data from DB or other source
-                // return books
+                return Book.find({}) // Empty object will return all
             }
         },
         authors:{
             type: new GraphQLList(AuthorType), 
             resolve(parent,args){ //response .then
                 // Code to get data from DB or other source
-                // return authors
+                return Author.find({})
             }
         },
     }
