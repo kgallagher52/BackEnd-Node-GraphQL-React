@@ -1,5 +1,8 @@
 const graphql = require('graphql');
 const _ = require('lodash'); // Package allows easy way to change or find data
+const Book = require('../Models/book');
+const Author = require('../Models/author');
+
 
 
 const { 
@@ -11,27 +14,7 @@ const {
     GraphQLList
 } = graphql;
 
-//Dummie Data
-var books = [
-    {name:"The Great Panda", genre:"Fantasy",id:"1",authorId:"1"},
-    {name:"No Sleep", genre:"Fantasy",id:"2",authorId:"2"},
-    {name:"Dev Mountain", genre:"Fantasy",id:"3",authorId:"3"},
-    {name:"Great Tails", genre:"Biography",id:"4",authorId:"4"},
-    {name:"Magical Beans", genre:"Fantasy",id:"5",authorId:"5"},
-    {name:"Ever Lasting Life", genre:"Biography",id:"6",authorId:"6"},
-    {name:"My coding Life", genre:"Biography",id:"7",authorId:"1"}
 
-];
-
-var authors = [
-    {name:"Keaton", age:21,id:"1"},
-    {name:"Siri", age:30,id:"2"},
-    {name:"Cameron", age:31,id:"3"},
-    {name:"Tom", age:28,id:"4"},
-    {name:"Alex", age:31,id:"5"},
-    {name:"Jeremy", age:25,id:"6"}
-
-];
 
 const BookType = new GraphQLObjectType({ // Object Type
     name: 'Book',
@@ -42,7 +25,7 @@ const BookType = new GraphQLObjectType({ // Object Type
         author: {
             type:AuthorType,
             resolve(parent,args){
-                return _.find(authors, {id: parent.authorId});
+                // return _.find(authors, {id: parent.authorId});
             }
         }
     })
@@ -57,7 +40,7 @@ const AuthorType = new GraphQLObjectType({ // Object Type
         books: {
             type: new GraphQLList(BookType),
             resolve(parent,args) {
-                return _.filter(books, {authorId: parent.id})
+                // return _.filter(books, {authorId: parent.id})
             }
         }
 
@@ -72,7 +55,7 @@ const RootQuery = new GraphQLObjectType({ // Root query are the access points to
             args: {id: { type:GraphQLID } }, // What query is expecting from frontend Req
             resolve(parent,args){ //response .then
                 // Code to get data from DB or other source
-                return _.find(books, { id: args.id})
+                // return _.find(books, { id: args.id})
             }
         },
         author:{
@@ -80,21 +63,21 @@ const RootQuery = new GraphQLObjectType({ // Root query are the access points to
             args: {id: { type:GraphQLID } }, // What query is expecting from frontend Req
             resolve(parent,args){ //response .then
                 // Code to get data from DB or other source
-                return _.find(authors, { id: args.id})
+                // return _.find(authors, { id: args.id})
             }
         },
         books:{
             type: new GraphQLList(BookType), 
             resolve(parent,args){ //response .then
                 // Code to get data from DB or other source
-                return books
+                // return books
             }
         },
         authors:{
             type: new GraphQLList(AuthorType), 
             resolve(parent,args){ //response .then
                 // Code to get data from DB or other source
-                return authors
+                // return authors
             }
         },
     }
