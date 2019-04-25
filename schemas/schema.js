@@ -1,5 +1,5 @@
 const graphql = require('graphql');
-const _ = require('loadash'); // Package allows easy way to change or find data
+const _ = require('lodash'); // Package allows easy way to change or find data
 
 
 const { GraphQLObjectType, GraphQLString, GraphQLSchema } = graphql;
