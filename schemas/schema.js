@@ -2,7 +2,12 @@ const graphql = require('graphql');
 const _ = require('lodash'); // Package allows easy way to change or find data
 
 
-const { GraphQLObjectType, GraphQLString, GraphQLSchema } = graphql;
+const { 
+    GraphQLObjectType, 
+    GraphQLString, 
+    GraphQLSchema,
+    GraphQLID
+} = graphql;
 
 //Dummie Data
 var books = [
@@ -15,7 +20,7 @@ var books = [
 const BookType = new GraphQLObjectType({ // Object Type
     name: 'Book',
     fields: () => ({
-        id: { type:GraphQLString },
+        id: { type:GraphQLID },
         name: { type:GraphQLString },
         genre: { type:GraphQLString }
 
@@ -28,7 +33,7 @@ const RootQuery = new GraphQLObjectType({ // Root query are the access points to
     fields: {
         book:{
             type: BookType, //Endpoint
-            args: {id: { type:GraphQLString } }, // What query is expecting from frontend Req
+            args: {id: { type:GraphQLID } }, // What query is expecting from frontend Req
             resolve(parent,args){ //response .then
                 // Code to get data from DB or other source
                 return _.find(books, { id: args.id})
