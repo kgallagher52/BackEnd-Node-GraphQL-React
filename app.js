@@ -5,7 +5,8 @@ const app = express();
 
 //MiddleWare
 app.use('/graphql',graphqlHTTP({
-    schema
+    schema,
+    graphiql: true // Saying we want to use the graphiql tool when we go to /graphql in browser
 }))
 
 app.listen(5000, () => {
