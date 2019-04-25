@@ -1,7 +1,15 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 const schema = require('./schemas/schema');
 const app = express();
+dotenv.config();
+
+mongoose.connect(process.env.DB,{ useNewUrlParser: true })
+mongoose.connection.once('open', () =>{
+    console.log("Connected to database");
+})
 
 //MiddleWare
 app.use('/graphql',graphqlHTTP({

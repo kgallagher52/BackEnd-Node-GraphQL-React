@@ -1,5 +1,19 @@
 # Node-GraphQL-React
 
+## Technologies
+    1. Node
+
+    2. Express
+
+    3. Mongoose
+
+    4. MongoDb
+
+    5. Mlab
+
+    6. GraphQL
+
+
 # Resources
 https://youtu.be/ed8SzALpx1Q
 
