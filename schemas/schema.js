@@ -3,8 +3,6 @@ const _ = require('lodash'); // Package allows easy way to change or find data
 const Book = require('../Models/book');
 const Author = require('../Models/author');
 
-
-
 const { 
     GraphQLObjectType, 
     GraphQLString, 
@@ -13,8 +11,6 @@ const {
     GraphQLInt,
     GraphQLList
 } = graphql;
-
-
 
 const BookType = new GraphQLObjectType({ // Object Type
     name: 'Book',
@@ -83,6 +79,44 @@ const RootQuery = new GraphQLObjectType({ // Root query are the access points to
     }
 })
 
+const Mutation = new GraphQLObjectType({
+    name:'Mutation',
+    fields: {
+        addAuthor:{
+            type: AuthorType,
+            args: {
+                name: {type: GraphQLString},
+                age: {type: GraphQLInt}
+            },
+            resolve(parent,args) {
+                let author = new Author({
+                    name: args.name,
+                    age: args.age
+                });
+                return author.save(); // Save method comes from mongoose
+            }
+        },
+        addBook:{
+            type: BookType,
+            args: {
+                name: {type: GraphQLString},
+                genre: {type: GraphQLString},
+                authorId: {type: GraphQLID}
+            },
+            resolve(parent,args) {
+                let book = new Book({ //Book is coming from the model we imported from the models
+                    name: args.name,
+                    genre: args.genre,
+                    authorId: args.authorId
+
+                });
+                return book.save(); // Save method comes from mongoose
+            }
+        }
+    }
+})
+
 module.exports = new GraphQLSchema({ // Defining Schema
-    query: RootQuery 
+    query: RootQuery,
+    mutation: Mutation
 })

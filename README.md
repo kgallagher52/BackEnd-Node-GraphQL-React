@@ -20,7 +20,7 @@ https://youtu.be/ed8SzALpx1Q
 # Root Queries
 How we get into the graph the entry points
 
-#Notes
+# Notes
     1. When making a query you must use "", not ''
     
     2. Query example of relationship data
@@ -34,3 +34,8 @@ How we get into the graph the entry points
                 }
             }
         }
+# Mutations
+ 1. Create
+ 2. Update
+ 3. Delete
+ 4. ex: mutation {addAuthor(name:"some name", age:26){name age}}
