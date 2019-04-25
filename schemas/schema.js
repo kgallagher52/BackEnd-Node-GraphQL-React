@@ -12,10 +12,10 @@ const {
 
 //Dummie Data
 var books = [
-    {name:"harry Potter 1", genre:"Fantasy",id:"1"},
-    {name:"harry Potter 2", genre:"Fantasy",id:"2"},
-    {name:"harry Potter 3", genre:"Fantasy",id:"3"},
-    {name:"Diary of Ann Frank", genre:"Biography",id:"4"}
+    {name:"The Great Panda", genre:"Fantasy",id:"1",authorId:"1"},
+    {name:"No Sleep", genre:"Fantasy",id:"2",authorId:"2"},
+    {name:"Dev Mountain", genre:"Fantasy",id:"3",authorId:"3"},
+    {name:"Great Tails", genre:"Biography",id:"4",authorId:"4"}
 ];
 
 var authors = [
@@ -30,9 +30,13 @@ const BookType = new GraphQLObjectType({ // Object Type
     fields: () => ({
         id: { type:GraphQLID },
         name: { type:GraphQLString },
-        genre: { type:GraphQLString }
-
-
+        genre: { type:GraphQLString },
+        author: {
+            type:AuthorType,
+            resolve(parent,args){
+                return _.find(authors, {id: parent.authorId});
+            }
+        }
     })
 })
 
