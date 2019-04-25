@@ -6,7 +6,8 @@ const {
     GraphQLObjectType, 
     GraphQLString, 
     GraphQLSchema,
-    GraphQLID
+    GraphQLID,
+    GraphQLInt
 } = graphql;
 
 //Dummie Data
@@ -17,6 +18,13 @@ var books = [
     {name:"Diary of Ann Frank", genre:"Biography",id:"4"}
 ];
 
+var authors = [
+    {name:"Keaton", age:21,id:"1"},
+    {name:"Siri", age:30,id:"2"},
+    {name:"Cameron", age:31,id:"3"},
+    {name:"Tom", age:28,id:"4"}
+];
+
 const BookType = new GraphQLObjectType({ // Object Type
     name: 'Book',
     fields: () => ({
@@ -24,6 +32,16 @@ const BookType = new GraphQLObjectType({ // Object Type
         name: { type:GraphQLString },
         genre: { type:GraphQLString }
 
+
+    })
+})
+
+const AuthorType = new GraphQLObjectType({ // Object Type
+    name: 'Author',
+    fields: () => ({
+        id: { type:GraphQLID },
+        name: { type:GraphQLString },
+        age: { type:GraphQLInt }
 
     })
 })
@@ -38,7 +56,15 @@ const RootQuery = new GraphQLObjectType({ // Root query are the access points to
                 // Code to get data from DB or other source
                 return _.find(books, { id: args.id})
             }
-        }
+        },
+        author:{
+            type: AuthorType, //Endpoint
+            args: {id: { type:GraphQLID } }, // What query is expecting from frontend Req
+            resolve(parent,args){ //response .then
+                // Code to get data from DB or other source
+                return _.find(authors, { id: args.id})
+            }
+        },
     }
 })
 
