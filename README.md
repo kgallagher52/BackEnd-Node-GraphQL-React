@@ -1,4 +1,4 @@
-# Node-GraphQL-React
+# GraphQL-React-Mongo
 
 ## Technologies
     1. Node
