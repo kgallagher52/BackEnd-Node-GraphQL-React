@@ -5,13 +5,15 @@
 
     2. Express
 
-    3. Mongoose
+    3. MongoDb
 
-    4. MongoDb
+    4. Mongoose
 
-    5. Mlab
+    5. React
 
     6. GraphQL
+
+    6. Apollo
 
 
 # Resources
