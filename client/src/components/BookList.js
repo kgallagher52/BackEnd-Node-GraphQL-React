@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { graphql } from 'react-apollo' //Glue that binds the component to graphql 
 import { getBooksQuery } from '../queries/queries'
+import BookDetails from './BookDetails';
 
 
 const BookList = ({ data }) => {
     const [books, setBooks] = useState([]);
+    const [selectedBook, setSelectedBook] = useState("");
 
     useEffect(() => {
         if (data.books) {
@@ -12,6 +14,7 @@ const BookList = ({ data }) => {
         }
         return () => {
             setBooks([]);
+            setSelectedBook("");
         }
 
     }, [data])
@@ -23,12 +26,13 @@ const BookList = ({ data }) => {
                     books.length > 0
                         ?
                         books.map(b => (
-                            <li key={b.id}>{b.name}</li>
+                            <li onClick={() => setSelectedBook(b.id)} key={b.id}>{b.name}</li>
                         ))
                         :
                         <li>...Loading Books</li>
                 }
             </ul>
+            <BookDetails id={selectedBook} />
         </div>
     )
 }
